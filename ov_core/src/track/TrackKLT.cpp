@@ -782,6 +782,7 @@ void TrackKLT::perform_detection_stereo(const std::vector<cv::Mat> &img0pyr, con
   // RIGHT: if we need features we should extract them in the current frame
   // RIGHT: note that we don't track them to the left as we already did left->right tracking above
   int num_featsneeded_1 = num_features - (int)pts1.size();
+  // std::cout << "check num_feats=" << num_features << std::endl;
   if (num_featsneeded_1 > std::min(20, (int)(min_feat_percent * num_features))) {
 
     // This is old extraction code that would extract from the whole image
