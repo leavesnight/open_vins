@@ -484,8 +484,8 @@ void ROS1Visualizer::callback_inertial(const sensor_msgs::Imu::ConstPtr &msg) {
         static int time_cnt = 0;
         time_sum += time_total;
         ++time_cnt;
-        PRINT_INFO(BLUE "[TIME]: %.4f seconds total (%.1f hz, %.2f ms behind), avg fe dt=%.4f s\n" RESET, time_total, 1.0 / time_total, update_dt,
-                   time_sum/time_cnt);
+        PRINT_INFO(BLUE "[TIME]: %.4f seconds total (%.1f hz, %.2f ms behind), avg fe dt=%.4f s\n" RESET, time_total, 1.0 / time_total,
+                   update_dt, time_sum / time_cnt);
       }
     }
     thread_update_running = false;
