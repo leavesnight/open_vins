@@ -152,8 +152,8 @@ geometry_msgs::msg::TransformStamped ROSVisualizerHelper::get_stamped_transform_
 #endif
 
 void ROSVisualizerHelper::sim_save_total_state_to_file(std::shared_ptr<State> state, std::shared_ptr<Simulator> sim,
-                                                       std::ofstream &of_state_est, std::ofstream &of_state_std,
-                                                       std::ofstream &of_state_gt) {
+                                                       std::ofstream &of_state_est, std::ofstream &of_state_std, std::ofstream &of_state_gt,
+                                                       bool bevo_fmt) {
 
   // We want to publish in the IMU clock frame
   // The timestamp in the state will be the last camera time
@@ -244,12 +244,21 @@ void ROSVisualizerHelper::sim_save_total_state_to_file(std::shared_ptr<State> st
   of_state_est.setf(std::ios::fixed, std::ios::floatfield);
   of_state_est << timestamp_inI << " ";
   of_state_est.precision(6);
-  of_state_est << state->_imu->quat()(0) << " " << state->_imu->quat()(1) << " " << state->_imu->quat()(2) << " " << state->_imu->quat()(3)
-               << " ";
-  of_state_est << state->_imu->pos()(0) << " " << state->_imu->pos()(1) << " " << state->_imu->pos()(2) << " ";
-  of_state_est << state->_imu->vel()(0) << " " << state->_imu->vel()(1) << " " << state->_imu->vel()(2) << " ";
-  of_state_est << state->_imu->bias_g()(0) << " " << state->_imu->bias_g()(1) << " " << state->_imu->bias_g()(2) << " ";
-  of_state_est << state->_imu->bias_a()(0) << " " << state->_imu->bias_a()(1) << " " << state->_imu->bias_a()(2) << " ";
+  if (bevo_fmt) {
+    of_state_est << state->_imu->pos()(0) << " " << state->_imu->pos()(1) << " " << state->_imu->pos()(2) << " ";
+    of_state_est << state->_imu->quat()(0) << " " << state->_imu->quat()(1) << " " << state->_imu->quat()(2) << " "
+                 << state->_imu->quat()(3) << " ";
+    of_state_est << state->_imu->vel()(0) << " " << state->_imu->vel()(1) << " " << state->_imu->vel()(2) << " ";
+    of_state_est << state->_imu->bias_g()(0) << " " << state->_imu->bias_g()(1) << " " << state->_imu->bias_g()(2) << " ";
+    of_state_est << state->_imu->bias_a()(0) << " " << state->_imu->bias_a()(1) << " " << state->_imu->bias_a()(2) << " ";
+  } else {
+    of_state_est << state->_imu->quat()(0) << " " << state->_imu->quat()(1) << " " << state->_imu->quat()(2) << " "
+                 << state->_imu->quat()(3) << " ";
+    of_state_est << state->_imu->pos()(0) << " " << state->_imu->pos()(1) << " " << state->_imu->pos()(2) << " ";
+    of_state_est << state->_imu->vel()(0) << " " << state->_imu->vel()(1) << " " << state->_imu->vel()(2) << " ";
+    of_state_est << state->_imu->bias_g()(0) << " " << state->_imu->bias_g()(1) << " " << state->_imu->bias_g()(2) << " ";
+    of_state_est << state->_imu->bias_a()(0) << " " << state->_imu->bias_a()(1) << " " << state->_imu->bias_a()(2) << " ";
+  }
 
   // STATE: Write current uncertainty to file
   of_state_std.precision(5);
@@ -395,6 +404,9 @@ void ROSVisualizerHelper::sim_save_total_state_to_file(std::shared_ptr<State> st
     of_state_std << 0.0 << " " << 0.0 << " " << 0.0 << " ";
   }
 
+  if (bevo_fmt) {
+    of_state_est << "0";
+  }
   // Done with the estimates!
   of_state_est << endl;
   of_state_std << endl;

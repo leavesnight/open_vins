@@ -63,12 +63,12 @@ init_dyn_bias_a: [0.0, 0.0, 0.0] # initial accelerometer bias guess
 # ==================================================================
 
 record_timing_information: false
-record_timing_filepath: "/tmp/traj_timing.txt"
+record_timing_filepath: "~/tmp/openvins/traj_timing.txt"
 
-save_total_state: false
-filepath_est: "/tmp/ov_estimate.txt"
-filepath_std: "/tmp/ov_estimate_std.txt"
-filepath_gt: "/tmp/ov_groundtruth.txt"
+save_total_state: true
+filepath_est: "~/tmp/openvins/ov_estimate.txt"
+filepath_std: "~/tmp/openvins/ov_estimate_std.txt"
+filepath_gt: "~/tmp/openvins/ov_groundtruth.txt"
 
 # ==================================================================
 # ==================================================================

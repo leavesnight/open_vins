@@ -21,6 +21,10 @@
     <arg name="dotime"      default="false" />
     <arg name="path_est"    default="/tmp/traj_estimate.txt" />
     <arg name="path_time"   default="/tmp/traj_timing.txt" />
+    <arg name="dosave_state"    default="true" />
+    <arg name="path_state_est"  default="/home/leavesnight/tmp/open_vins/state_estimate.txt" />
+    <arg name="path_state_std"  default="/home/leavesnight/tmp/open_vins/state_deviation.txt" />
+    <arg name="path_state_gt"   default="/home/leavesnight/tmp/open_vins/state_groundtruth.txt" />
 
     <!-- if we should viz the groundtruth -->
     <arg name="dolivetraj"  default="false" />
@@ -41,6 +45,11 @@
         <!-- timing statistics recording -->
         <param name="record_timing_information"   type="bool"   value="$(arg dotime)" />
         <param name="record_timing_filepath"      type="string" value="$(arg path_time)" />
+
+        <param name="save_total_state"       type="bool"   value="$(arg dosave_state)" />
+        <param name="filepath_est"           type="str"    value="$(arg path_state_est)" />
+        <param name="filepath_std"           type="str"    value="$(arg path_state_std)" />
+        <param name="filepath_gt"            type="str"    value="$(arg path_state_gt)" />
 
     </node>
 
